@@ -1,0 +1,41 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - "mongo-data:/data/db"
+    networks:
+      - cafe-inventory
+  backend:
+    image: cafe-inventory-backend
+    build: cafe-inventory-backend/.
+    ports:
+      - 3000:3000
+    restart: always
+    environment:
+      PORT: 3000
+    links:
+      - mongo
+    networks:
+      - cafe-inventory
+    depends_on:
+      - mongo
+  frontend:
+    image: cafe-inventory-frontend
+    build: cafe-inventory-frontend/.
+    volumes:
+      - .:/var/www/docker-vue
+      - /var/www/docker-vue/node_modules
+    ports:
+      - 8080:8080
+    networks:
+      - cafe-inventory
+volumes:
+  mongo-data:
+    driver: local
+networks:
+  cafe-inventory:
+   driver: bridge

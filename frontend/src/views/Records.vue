@@ -5,12 +5,11 @@
     <template v-else>
       <div class="search-bar input-group rounded w-50 mt-3">
         <input
-          v-model="dateSearch"
-          @keyup.enter="recordSearch"
-          name="dateSearch"
-          type="text"
+          v-model="dateSearchValue"
+          @change="recordSearch"
+          name="dateSearchValue"
+          type="date"
           class="form-control rounded"
-          placeholder="Entering date : YYYYMMDD"
           aria-label="record-date-search"
           aria-describedby="record-date-search"
         />
@@ -56,19 +55,24 @@
               :disabled="isProcessing"
               class="btn btn-info btn-sm"
             >
-              {{ isProcessing ? "處理中..." : "Calculate" }}
+              {{ isProcessing ? "處理中..." : "計算" }}
             </button>
           </form>
+          <div class="hint">
+            <span>
+              # 請填入當天商品銷售量，之後點選"計算"得到"估計用量"
+            </span>
+          </div>
         </div>
         <div class="results w-50">
           <div class="results-actualValue h-75 p-3">
             <table class="table form-group">
               <thead>
                 <tr class="table-info">
-                  <th scope="col" style="width: 25%">物料名稱</th>
-                  <th scope="col" style="width: 25%">實際使用量</th>
-                  <th scope="col" style="width: 25%">估計使用量</th>
-                  <th scope="col" cstyle="width:25%;">誤差量</th>
+                  <th scope="col">物料名稱</th>
+                  <th scope="col">實際使用量</th>
+                  <th scope="col">估計使用量</th>
+                  <th scope="col">誤差量</th>
                 </tr>
               </thead>
               <tbody>
@@ -133,6 +137,9 @@
             >
               {{ isProcessing ? "處理中..." : "刪除資料" }}
             </button>
+            <div class="hint">
+              <span># 輸入當天使用物料量"</span>
+            </div>
           </div>
         </div>
       </div>
@@ -154,7 +161,7 @@ export default {
     return {
       records: [],
       dateId: "",
-      dateSearch: "",
+      dateSearchValue: null,
       dateChecker: false,
       products: [],
       ingredients: [],
@@ -163,7 +170,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["currentUser"]),
+    ...mapState(["currentUser"])
   },
   methods: {
     async fetchData() {
@@ -173,6 +180,7 @@ export default {
         const ingredientsRes = await recordsAPI.getIngredients();
         this.ingredients = ingredientsRes.data.ingredients;
         this.dateId = moment().format("YYYYMMDD");
+        this.dateSearchValue = new Date().toISOString().slice(0, 10)
         this.getRecordsByDate();
         this.isLoading = false;
       } catch (error) {
@@ -185,6 +193,7 @@ export default {
     },
     async getRecordsByDate() {
       try {
+        console.log('getRecordsByDate', this.dateId)
         const { data } = await recordsAPI.getRecordsByDate({
           dateId: this.dateId,
         });
@@ -200,10 +209,14 @@ export default {
           });
           Toast.fire({
             icon: "info",
-            title: `dateId ${this.dateId} 已載入資料 `,
+            title: `日期 ${this.dateId} 已載入資料 `,
           });
           this.dateChecker = true;
         } else {
+          Toast.fire({
+            icon: "info",
+            title: `日期 ${this.dateId} 尚無資料`,
+          });
           this.resetForm();
           this.dateChecker = false;
         }
@@ -211,7 +224,7 @@ export default {
         this.isLoading = false;
         Toast.fire({
           icon: "info",
-          title: `dateId ${this.dateId} 尚無資料 `,
+          title: `紀錄載入發生錯誤 `,
         });
       }
     },
@@ -236,6 +249,7 @@ export default {
       try {
         this.isProcessing = true;
         const dateId = this.dateId;
+        console.log(dateId)
         let status = 0;
 
         for (let ingredient of this.ingredients) {
@@ -291,7 +305,7 @@ export default {
       }
     },
     recordSearch() {
-      this.dateId = this.dateSearch;
+      this.dateId = moment(this.dateSearchValue).format("YYYYMMDD");
       this.getRecordsByDate();
     },
     resetForm() {
@@ -359,4 +373,10 @@ th,
 td {
   vertical-align: middle;
 }
+.hint {
+  position: absolute;
+  bottom: 15px;
+  width: 45%;
+}
+
 </style>

@@ -11,7 +11,6 @@ const adminController = {
     try {
       const { account, name, email, password, checkPassword, isAdmin } = req.body
       // 確認 account & name & email & password & checkPassword 必填
-      console.log(account, name, email, password, checkPassword, isAdmin)
       if (!account || !name || !email || !password || !checkPassword) {
         return res.status(400).json({ status: 'error', message: 'account, name, email, password, checkPassword are required!' })
       }
@@ -82,7 +81,7 @@ const adminController = {
       const { name, size, price } = req.body
       const product = await Product.find({ name, size })
       if (product.length !== 0) {
-        return res.status(400).json({ status: 'error', message: 'Both name and size have been registed at same product' })
+        return res.status(400).json({ status: 'error', message: 'Both name and size have been registered at same product' })
       }
       await Product.create({
         name, size, price
@@ -160,7 +159,7 @@ const adminController = {
       const { name, unit, unitName, unit2, unit2Name } = req.body
       const ingredient = await Ingredient.find({ name })
       if (ingredient.length !== 0) {
-        return res.status(400).json({ status: 'error', message: 'This name have been registed in ingredient' })
+        return res.status(400).json({ status: 'error', message: 'This name have been registered in ingredient' })
       }
       await Ingredient.create({
         name, unit, unitName, unit2, unit2Name
@@ -239,7 +238,7 @@ const adminController = {
         return res.status(400).json({ status: 'error', message: 'Quantity can\'t be 0.' })
       }
       if (composition.length !== 0) {
-        return res.status(400).json({ status: 'error', message: 'This composition have already registed' })
+        return res.status(400).json({ status: 'error', message: 'This composition have already registered' })
       }
       await Composition.create({ quantity, ingredientId, productId })
       return res.status(200).json({ status: 'success', message: 'New composition have been built.' })

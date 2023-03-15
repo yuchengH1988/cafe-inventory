@@ -9,14 +9,14 @@
       </router-link>
     </div>
     <template v-if="isAuthenticated">
-      <div class="sidebar-menu mt-3">
+      <div class="sidebar-menu mt-4">
         <router-link class="nav-link navbar-record" to="/records">
           <i class="fas fa-folder-plus"></i>
           <span>稽核紀錄</span>
         </router-link>
-        <router-link class="nav-link navbar-data" to="/charts">
+        <router-link class="nav-link navbar-data mt-3" to="/charts">
           <i class="fas fa-database"></i>
-          <span>報表查詢</span>
+          <span class="mt-1">報表查詢</span>
         </router-link>
       </div>
       <div class="sidebar-end mt-auto">
@@ -28,7 +28,7 @@
           <i class="fas fa-user-cog"></i>
           <span>後台</span>
         </router-link>
-        <router-link class="nav-link navbar-user" to="/user">
+        <router-link class="nav-link navbar-user mb-3" to="/user">
           <i class="far fa-user"></i>
           <span>使用者</span>
         </router-link>
@@ -82,6 +82,7 @@ export default {
   background: white;
 }
 .nav-link:hover {
+  padding: 6px 10px;
   font-size: 32px;
 }
 .nav-link span {
@@ -95,14 +96,18 @@ export default {
   position: absolute;
   width: 100%;
   text-align: center;
-  bottom: -7px;
+  bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
+  color: #fff;
 }
 .nav-link.active {
   border: 1px solid white;
   padding: 2px 11px;
   border-radius: 25px;
+}
+.results-actualValue table thead tr th {
+  width: 25%;
 }
 
 .logout {

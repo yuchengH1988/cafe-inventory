@@ -11,8 +11,6 @@ require('dotenv').config({ path: path.resolve(__dirname, './.env.example') })
 const mongoose = require('mongoose')
 require('./config/mongoose')
 
-//  132132456456
-
 const app = express()
 const PORT = process.env.PORT
 

@@ -52,14 +52,14 @@
             </table>
             <button
               type="submit"
-              :disabled="isProcessing"
+              :disabled="isProcessing || dateChecker"
               class="btn btn-info btn-sm"
             >
               {{ isProcessing ? "處理中..." : "計算" }}
             </button>
           </form>
           <div class="hint">
-            <span>
+            <span v-show="!dateChecker">
               # 請填入當天商品銷售量，之後點選"計算"得到"估計用量"
             </span>
           </div>
@@ -117,8 +117,7 @@
               </tbody>
             </table>
             <p>
-              日期設定：{{ dateId | timeFormate }}
-              {{ dateChecker ? "紀錄已經存在" : "" }}
+              {{ dateChecker ? "物料紀錄" : "日期設定" }}：{{ dateId | timeFormate }}
             </p>
 
             <button
@@ -138,7 +137,7 @@
               {{ isProcessing ? "處理中..." : "刪除資料" }}
             </button>
             <div class="hint">
-              <span># 輸入當天使用物料量"</span>
+              <span v-show="!dateChecker"># 輸入當天使用物料量"</span>
             </div>
           </div>
         </div>
@@ -351,9 +350,7 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
-input[type="number"] {
-  -moz-appearance: textfield;
-}
+
 .record-main {
   position: relative;
   flex-grow: 1;

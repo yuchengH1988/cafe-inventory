@@ -9,7 +9,7 @@
       </router-link>
     </div>
     <template v-if="isAuthenticated">
-      <div class="sidebar-menu mt-4">
+      <div class="sidebar-menu mt-3">
         <router-link class="nav-link navbar-record" to="/records">
           <i class="fas fa-folder-plus"></i>
           <span>稽核紀錄</span>

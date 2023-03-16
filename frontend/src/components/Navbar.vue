@@ -7,18 +7,24 @@
       >
         <i class="fas fa-coffee"></i>
       </router-link>
-    </div>
-    <template v-if="isAuthenticated">
-      <div class="sidebar-menu mt-3">
-        <router-link class="nav-link navbar-record" to="/records">
+      <div
+        v-if="isAuthenticated"
+        class="sidebar-menu mt-3">
+        <router-link
+          class="nav-link navbar-record"
+          to="/records">
           <i class="fas fa-folder-plus"></i>
           <span>稽核紀錄</span>
         </router-link>
-        <router-link class="nav-link navbar-data mt-3" to="/charts">
+        <router-link
+          class="nav-link navbar-data mt-3"
+          to="/charts">
           <i class="fas fa-database"></i>
           <span class="mt-1">報表查詢</span>
         </router-link>
       </div>
+    </div>
+    <template v-if="isAuthenticated">
       <div class="sidebar-end mt-auto">
         <router-link
           v-if="currentUser.isAdmin"
@@ -35,8 +41,7 @@
         <button
           type="button"
           class="btn btn-light logout text-info mt-2"
-          @click="logout"
-        >
+          @click="logout">
           LOG <br />
           OUT
         </button>
@@ -76,14 +81,14 @@ export default {
   color: white;
   font-size: 30px;
   position: relative;
+  transition: all .2s ease-in-out;
 }
 .navbar-home {
   padding: 8px 11px;
   background: white;
 }
 .nav-link:hover {
-  padding: 6px 10px;
-  font-size: 32px;
+  transform: scale(1.05)
 }
 .nav-link span {
   display: none;

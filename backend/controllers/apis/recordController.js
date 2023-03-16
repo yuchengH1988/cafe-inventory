@@ -108,7 +108,10 @@ const recordController = {
   getRecords: async (req, res, next) => {
     try {
       const filter = { authorId: req.user._id }
-      const { year, month, ingredientId } = req.query
+      const { year, month, ingredientId, authorId } = req.query
+      if (authorId) {
+        filter.authorId = authorId
+      }
       //月份判斷
       let timeSet = '^'
       if (ingredientId) {

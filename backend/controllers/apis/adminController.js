@@ -280,34 +280,6 @@ const adminController = {
       console.log(error)
       return next(error)
     }
-  },
-  getRecords: async (req, res, next) => {
-    try {
-      const filter = {}
-      const { year, month, ingredientId, authorId } = req.query
-      if (ingredientId) {
-        filter.ingredientId = ingredientId
-      }
-      if (authorId) {
-        filter.authorId = authorId
-      } else {
-        return res.status(400).json({ status: 'error', message: '請輸入使用者' })
-      }
-      //月份判斷
-      let timeSet = '^'
-      if (year && month) {
-        timeSet += year + month
-      } else {
-        timeSet += moment().format('YYYYMM')
-      }
-      filter.dateId = { $regex: timeSet }
-      const records = await Record.find(filter).sort({ dateId: 1 })
-
-      return res.status(200).json({ status: 'success', records })
-    } catch (error) {
-      console.log(error)
-      next(error)
-    }
   }
 }
 module.exports = adminController

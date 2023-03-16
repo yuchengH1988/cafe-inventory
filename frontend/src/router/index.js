@@ -87,12 +87,6 @@ const router = new Router({
       name: 'admin-composition',
       component: () => import('../views/AdminComposition.vue'),
       beforeEnter: authorizeIsAdmin
-    },
-    {
-      path: '/admin/charts',
-      name: 'admin-charts',
-      component: () => import('../views/AdminCharts.vue'),
-      beforeEnter: authorizeIsAdmin
     }
   ]
 })

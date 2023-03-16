@@ -19,8 +19,8 @@ export default {
   deleteRecord({ dateId }) {
     return apiHelper.delete(`/records/${dateId}`)
   },
-  getRecords({ year, month, ingredientId }) {
-    const searchParams = new URLSearchParams({ year, month, ingredientId })
+  getRecords ({ year, month, ingredientId, authorId }) {
+    const searchParams = new URLSearchParams({ year, month, ingredientId, authorId })
     return apiHelper.get(`/records?${searchParams.toString()}`)
   },
 

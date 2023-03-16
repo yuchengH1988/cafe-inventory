@@ -192,7 +192,6 @@ export default {
     },
     async getRecordsByDate() {
       try {
-        console.log('getRecordsByDate', this.dateId)
         const { data } = await recordsAPI.getRecordsByDate({
           dateId: this.dateId,
         });

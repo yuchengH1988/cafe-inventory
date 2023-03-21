@@ -1,0 +1,22 @@
+.link-wrapper {
+  border: 1px solid rgba(23, 162, 184);
+  padding: 10px 15px 8px 25px;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  border-left: none;
+  font-size: 18px;
+  display: inline-flex;
+}
+.nav-link {
+  color: rgba(23, 162, 184);
+  font-weight: 500;
+  padding: 0 10px;
+}
+.nav-link.active {
+  font-weight: 700;
+}
+.nav-link:hover {
+  color: rgba(23, 162, 184);
+  color: rgba(23, 162, 184);
+  font-weight: 700;
+}

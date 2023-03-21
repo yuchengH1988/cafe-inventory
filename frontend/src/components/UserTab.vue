@@ -4,18 +4,13 @@
     <div class="link-wrapper d-flex">
       <router-link
         class="nav-link"
-        to="/admin/data/ingredients">
-        原料
+        to="/admin/users/list">
+        列表
       </router-link>
       <router-link
         class="nav-link"
-        to="/admin/data/products">
-        飲品
-      </router-link>
-      <router-link
-        class="nav-link"
-        to="/admin/data/composition">
-        成分
+        to="/admin/users/new">
+        新建
       </router-link>
     </div>
   </div>

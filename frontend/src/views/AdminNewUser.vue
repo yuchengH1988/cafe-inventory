@@ -1,6 +1,9 @@
 <template>
   <div class="container py-5">
-    <AdminTab />
+    <div class="nav-wrapper d-flex">
+      <AdminTab />
+      <UserTab />
+    </div>
     <div class="table-wrapper p-4 mx-auto">
       <form @submit.stop.prevent="createUser">
         <div class="form-group row">
@@ -101,12 +104,14 @@
 </template>
 <script>
 import AdminTab from "../components/AdminTab.vue";
+import UserTab from "../components/UserTab.vue";
 import { Toast } from "../utils/helpers";
 import adminAPI from "../apis/admin";
 export default {
   name: "Admin-Users",
   components: {
     AdminTab,
+    UserTab
   },
   data() {
     return {

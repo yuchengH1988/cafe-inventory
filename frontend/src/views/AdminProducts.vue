@@ -6,14 +6,13 @@
     </div>
     <Spinner v-if="isLoading" />
     <template v-else>
-      <div class="products-main mt-3 d-flex align-items-start">
-        <div class="products-wrapper card">
-          <span class="product-title">Products List</span>
+      <div class="mt-3 d-flex align-items-start">
+        <div class="list-wrapper card">
+          <span class="list-title">Products List</span>
           <div
             v-for="product in products"
             :key="product.id"
-            class="product-list d-flex align-items-center"
-          >
+            class="item-wrapper d-flex align-items-center">
             <span>{{ product.name }}</span>
             <button
               type="button"
@@ -34,12 +33,17 @@
             New
           </button>
         </div>
-        <div v-if="isEditing" class="product-form ml-5 card">
+        <div
+          v-if="isEditing"
+          class="form-item ml-3 card">
           <span class="form-title mb-2">{{
             editProduct.name ? editProduct.name : "New Ingredient"
           }}</span>
           <div class="form-row-wrapper">
-            <span class="form-key text-center">Name</span>
+            <span 
+              class="form-key text-center">
+              Name
+            </span>
             <input
               type="text"
               class="form-control form-input"
@@ -105,6 +109,7 @@ export default {
       },
       isEditing: false,
       isProcessing: false,
+      nav: ''
     };
   },
   components: {
@@ -118,6 +123,7 @@ export default {
   methods: {
     async fetchData() {
       try {
+        this.nav = 'admin-data';
         const { data } = await recordsAPI.getProducts();
         this.products = data.products;
       } catch (error) {
@@ -221,45 +227,10 @@ export default {
   },
 };
 </script>
+<style src="../../assets/css/dataSetting.css"></style>
 <style scoped>
-.products-wrapper {
-  padding: 15px 10px;
-  border: 2px solid rgb(23, 162, 184, 0.7);
-  border-radius: 25px;
-  width: 220px;
-}
-.form-title {
-  text-align: center;
-  font-size: 20px;
-  color: rgb(65, 65, 65);
-  font-weight: 700;
-}
-.form-row-wrapper {
-  display: flex;
-  align-items: center;
-  margin: 5px 0;
-}
-.product-form {
-  padding: 15px 30px;
-  background-color: rgb(23, 162, 184, 0.2);
-  border-radius: 25px;
-  width: 300px;
-  height: 260px;
-}
-.product-title {
-  font-size: 20px;
-  color: rgb(23, 162, 184);
-  text-align: center;
-  margin-bottom: 8px;
-}
-.product-list {
-  color: rgb(109, 109, 109);
-  padding: 10px 0;
-  border-bottom: 1px solid darkgray;
-}
 
 .form-key {
-  color: rgb(56, 56, 56);
   width: 30%;
 }
 .form-input {

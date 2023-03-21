@@ -2,14 +2,13 @@
   <nav class="sidebar bg-info">
     <div class="sidebar__home">
       <router-link
-        class="nav-link navbar-home border rounded-circle text-info"
-        to="/"
-      >
+        class="navbar-home border rounded-circle text-info"
+        to="/">
         <i class="fas fa-coffee"></i>
       </router-link>
       <div
         v-if="isAuthenticated"
-        class="sidebar-menu mt-3">
+        class="sidebar-menu mt-4">
         <router-link
           class="nav-link navbar-record"
           to="/records">
@@ -17,7 +16,7 @@
           <span>稽核紀錄</span>
         </router-link>
         <router-link
-          class="nav-link navbar-data mt-3"
+          class="nav-link navbar-data mt-2"
           to="/charts">
           <i class="fas fa-database"></i>
           <span class="mt-1">報表查詢</span>
@@ -30,11 +29,13 @@
           v-if="currentUser.isAdmin"
           class="nav-link navbar-admin"
           to="/admin/data"
-        >
+          :class="[{'router-link-active active': $route.path.indexOf('admin') > -1}]">
           <i class="fas fa-user-cog"></i>
           <span>後台</span>
         </router-link>
-        <router-link class="nav-link navbar-user mb-3" to="/user">
+        <router-link
+          class="nav-link navbar-user mb-3"
+          to="/user">
           <i class="far fa-user"></i>
           <span>使用者</span>
         </router-link>
@@ -77,7 +78,7 @@ export default {
   align-items: center;
   font-size: 30px;
 }
-.nav-link {
+.nav-link, .navbar-home {
   color: white;
   font-size: 30px;
   position: relative;
@@ -87,7 +88,7 @@ export default {
   padding: 8px 11px;
   background: white;
 }
-.nav-link:hover {
+.nav-link:hover, .navbar-home:hover {
   transform: scale(1.05)
 }
 .nav-link span {
@@ -107,10 +108,12 @@ export default {
   color: #fff;
 }
 .nav-link.active {
-  border: 1px solid white;
+  border: 3px solid white;
+  background: rgba(0,0,0, 0.3);
   padding: 2px 11px;
   border-radius: 25px;
 }
+
 .results-actualValue table thead tr th {
   width: 25%;
 }

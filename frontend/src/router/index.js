@@ -20,6 +20,7 @@ const authorizeIsAdmin = (to, from, next) => {
 
 const router = new Router({
   linkExactActiveClass: 'active',
+  linkActiveClass: 'active',
   routes: [
     {
       path: '/',
@@ -53,7 +54,7 @@ const router = new Router({
       component: NotFound,
     },
     {
-      path: '/admin/users',
+      path: '/admin/users/list',
       name: 'admin-users',
       component: () => import('../views/AdminUsers.vue'),
       beforeEnter: authorizeIsAdmin

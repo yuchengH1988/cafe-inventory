@@ -69,14 +69,16 @@
             <table class="table form-group">
               <thead>
                 <tr class="table-info">
-                  <th scope="col">物料名稱</th>
+                  <th class="w-25" scope="col">物料名稱</th>
                   <th scope="col">實際使用量</th>
                   <th scope="col">估計使用量</th>
                   <th scope="col">誤差量</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="ingredient in ingredients" :key="ingredient._id">
+                <tr
+                  v-for="ingredient in ingredients" 
+                  :key="ingredient._id">
                   <th scope="row">
                     {{ ingredient.name }}({{ ingredient.unitName }})
                   </th>

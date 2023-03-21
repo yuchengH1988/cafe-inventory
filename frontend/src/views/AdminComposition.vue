@@ -31,22 +31,21 @@
             :key="component._id"
             class="product-row d-flex justify-content-between"
           >
-            <span class="ingredient-name"
-              >{{ component.ingredientName }}({{
+            <span class="ingredient-name">
+              {{ component.ingredientName }}
+              ({{
                 component.ingredientUnit
-              }})</span
-            >
+              }})
+              </span>
             <input
               v-model="component.quantity"
               type="number"
-              class="quantity form-control w-25"
-            />
+              class="quantity form-control w-25"/>
             <button
               @click="updateComposition(component)"
               type="button"
               class="btn btn-info btn-sm"
-              :disabled="isProcessing"
-            >
+              :disabled="isProcessing">
               {{ component.quantity != 0 ? "save" : "delete" }}
             </button>
           </div>
@@ -54,14 +53,15 @@
             <select
               v-model="newIngredientId"
               class="form-select"
-              aria-label="new ingredient"
-            >
-              <option value="" selected>新增成份</option>
+              aria-label="new ingredient">
+              <option
+                value="" selected>
+                新增成份
+              </option>
               <option
                 v-for="ingredient in ingredients"
                 :value="ingredient._id"
-                :key="ingredient._id"
-              >
+                :key="ingredient._id">
                 {{ ingredient.name }}
               </option>
             </select>

@@ -1,12 +1,12 @@
 <template>
   <div class="container py-5">
-    <AdminTab />
+    <div class="nav-wrapper d-flex">
+      <AdminTab />
+      <UserTab />
+    </div>
     <Spinner v-if="isLoading" />
     <template v-else>
       <div class="table-wrapper p-4">
-        <router-link to="/admin/users/new">
-          <button class="new-user btn btn-info mb-3">New User</button>
-        </router-link>
         <table class="table">
           <thead class="thead table-info">
             <tr>
@@ -51,6 +51,7 @@
 </template>
 <script>
 import AdminTab from "../components/AdminTab.vue";
+import UserTab from "../components/UserTab.vue";
 import adminAPI from "../apis/admin";
 import { Toast } from "./../utils/helpers";
 import Spinner from "./../components/Spinner";
@@ -60,6 +61,7 @@ export default {
   components: {
     AdminTab,
     Spinner,
+    UserTab
   },
   data() {
     return {

@@ -11,16 +11,25 @@ const Composition = require('../composition')
 const Product = require('../product')
 db.once('open', async () => {
   try {
-    await Product.insertMany(products)
-    console.log('products created !!')
-    const ingredients = await Ingredient.find()
-    products = await Product.find()
-    compositions = compositions.map(i => ({
-      ...i,
-      ingredientId: ingredients.find(item => item.name === i.ingredientId)._id,
-      productId: products.find(item => item.name === i.productId)._id,
-    }))
-    await Composition.insertMany(compositions)
+    const dbProduct = await Product.find({}).lean()
+
+    if (dbProduct.length) {
+      console.log('products already exists !!')
+    } else {
+      await Product.insertMany(products)
+      console.log('products created !!')
+      const ingredients = await Ingredient.find()
+      products = await Product.find()
+      compositions = compositions.map(i => {
+        return {
+          quantity: i.quantity,
+          ingredientId: ingredients.find(item => item.name === i.ingredientId)._id,
+          productId: ingredientName.find(item => item.name === i.productId)._id,
+        }
+      })
+      await Composition.insertMany(compositions)
+    }
+   
     db.close()
 
   } catch (error) {

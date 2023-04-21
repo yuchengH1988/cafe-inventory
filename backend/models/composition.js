@@ -14,6 +14,7 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'Product'
-  }
-})
+  },
+}, { versionKey: false })
+
 module.exports = mongoose.model('Composition', userSchema)

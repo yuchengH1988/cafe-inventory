@@ -12,8 +12,7 @@ const userSchema = new Schema({
   dateId: {
     type: String,
     require: true
-  }
-  ,
+  },
   actualUsed: {
     type: Number,
     required: true,
@@ -25,4 +24,7 @@ const userSchema = new Schema({
     default: 0
   }
 })
+
+userSchema.index({ userId: 1, status: 1 });
+
 module.exports = mongoose.model('Record', userSchema)

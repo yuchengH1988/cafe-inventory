@@ -15,10 +15,16 @@ db.once('open', async () => {
       ...user,
       password: bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null)
     }))
-    await User.insertMany(users)
-    console.log('users created !!')
-    await Ingredient.insertMany(ingredients)
-    console.log('ingredients created !!')
+    const dbUser = await User.find({}).lean()
+    if(dbUser.length) {
+      console.log('users already exists !!')
+    } else {
+      await User.insertMany(users)
+      console.log('users created !!')
+      await Ingredient.insertMany(ingredients)
+      console.log('ingredients created !!')
+    }
+    
     db.close()
   } catch (error) {
     console.log(error)

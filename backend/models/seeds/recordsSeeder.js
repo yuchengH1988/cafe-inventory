@@ -11,29 +11,48 @@ const User = require('../user')
 db.once('open', async () => {
   try {
 
-    const users = await User.find()
-    const ingredients = await Ingredient.find()
-    let businessDay = new Date("2021/04/01")
+    const users = await User.find().lean()
+    const ingredients = await Ingredient.find().lean()
+    let businessDay = new Date()
 
-    for (i = 0; i < 65; i++) {
-      let dateId = moment(businessDay).add(i, 'days').format('YYYYMMDD')
-      await Record.create({
-        dateId,
-        authorId: users[1]._id,
-        actualUsed: Math.floor(Math.random() * 100 + 1000),
-        estimateUsed: Math.floor(Math.random() * 150 + 1000),
-        ingredientId: ingredients[0]._id
+    const userIngredientArray = []
 
-      })
-      await Record.create({
-        dateId,
-        authorId: users[1]._id,
-        actualUsed: Math.floor(Math.random() * 400 + 4000),
-        estimateUsed: Math.floor(Math.random() * 600 + 4000),
-        ingredientId: ingredients[1]._id
-
+    for (const { _id } of users) {
+      ingredients.forEach(i => {
+        userIngredientArray.push({
+          authorId: _id,
+          ingredientId: i._id,
+          unit: i.unit2
+        })
       })
     }
+
+    const bulkOps = []
+
+    for (i = -1; i > -100; i--) {
+      let dateId = moment(businessDay).add(i, 'days').format('YYYYMMDD')
+      for (const { authorId, ingredientId, unit } of userIngredientArray) {
+        const estimateUsed = Math.round(unit * 10 + (Math.random() * 2 - 1) * unit * 2)
+        const actualUsed = Math.round(estimateUsed + (Math.random() * 2 - 1) * unit * 1)
+          bulkOps.push({
+            insertOne: {
+            document: {
+              dateId,
+              authorId,
+              actualUsed,
+              estimateUsed,
+              ingredientId
+            }
+          }
+        })
+      }
+      if (bulkOps.length > 500) {
+        await Record.bulkWrite(bulkOps, { ordered: false })
+        bulkOps.length = 0
+      }
+    }
+
+    if (bulkOps.length) await Record.bulkWrite(bulkOps, { ordered: false })
 
     db.close()
 

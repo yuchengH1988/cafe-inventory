@@ -19,5 +19,5 @@ const userSchema = new Schema({
   unit2Name: {
     type: String,
   },
-})
+}, { versionKey: false })
 module.exports = mongoose.model('Ingredient', userSchema)

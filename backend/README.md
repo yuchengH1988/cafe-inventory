@@ -42,7 +42,7 @@ npm run seed
 ```
 
 ```jsx
-//建立紀錄 Records
+//建立紀錄 Records，目前會根據今天以前的一百天建立紀錄。
 npm run fakeRecord
 ```
 

@@ -5,16 +5,25 @@
     <template v-else>
       <BarCharts v-if="chartsData.data.length" :initData="chartsData" />
       <div class="filter-wrapper d-flex justify-content-center mt-3">
-        <span v-if="!currentUser.isAdmin">
-          {{ current.name }}
+        <span
+          v-if="!currentUser.isAdmin"
+          class="mx-2">
+          {{ currentUser.name }}
         </span>
         <span v-if="currentUser.isAdmin">
           店家
         </span>
-        <select class="form-select form-select-sm mx-2" aria-label=".form-select-sm example" v-model="userId"
+        <select
+          v-if="currentUser.isAdmin"
+          class="form-select form-select-sm mx-2"
+          aria-label=".form-select-sm example"
+          v-model="userId"
           @change="fetchData">
-          <option v-for="u in users" :key="u._id" :value="u._id">
-            {{ u.name }}
+          <option
+            v-for="u in users"
+            :key="u._id"
+            :value="u._id">
+              {{ u.name }}
           </option>
         </select>
         <span>年份：</span>
@@ -108,6 +117,7 @@ export default {
   },
   data () {
     return {
+      message: '',
       ingredients: [],
       ingredient: {},
       isLoading: true,

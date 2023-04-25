@@ -23,8 +23,8 @@ db.once('open', async () => {
       compositions = compositions.map(i => {
         return {
           quantity: i.quantity,
-          ingredientId: ingredients.find(item => item.name === i.ingredientId)._id,
-          productId: ingredientName.find(item => item.name === i.productId)._id,
+          ingredientId: ingredients.find(item => item.name === i.ingredientName),
+          productId: products.find(item => item.name === i.productName),
         }
       })
       await Composition.insertMany(compositions)

@@ -20,8 +20,8 @@
           <i class="fas fa-search"></i>
         </span>
       </div>
-      <div class="record-main mt-4 d-flex border border-info rounded">
-        <div class="record-ingredients w-50 p-3">
+      <div class="record-main mt-4 border border-info rounded">
+        <div class="record-ingredients p-3">
           <form @submit.stop.prevent="handleForm">
             <table class="table form-group">
               <thead>
@@ -64,7 +64,7 @@
             </span>
           </div>
         </div>
-        <div class="results w-50">
+        <div class="results">
           <div class="results-actualValue h-75 p-3">
             <table class="table form-group">
               <thead>
@@ -356,7 +356,12 @@ input::-webkit-inner-spin-button {
   position: relative;
   flex-grow: 1;
   overflow-y: scroll;
+  display: flex;
 }
+.record-ingredients, .results{
+  width: 50%;
+}
+
 .record-main::after {
   border-left: 1px solid rgb(23, 162, 184);
   content: "";
@@ -375,6 +380,30 @@ td {
   position: absolute;
   bottom: 15px;
   width: 45%;
+}
+
+@media (max-width: 992px) {
+  .record-main {
+    display: block;
+  }
+  .hint {
+    bottom: 15px;
+    width: auto;
+    font-size: 12px;
+    right: 30px;
+  }
+  .record-ingredients, .results{
+    position: relative;
+    width: 100%;
+  }
+  .record-main::after {
+    border-left: 0px;
+    width: 95%;
+    right: 3%;
+    top: 48%;
+    height: 0%;
+    border-bottom: 1px solid rgb(23, 162, 184);
+  }
 }
 
 </style>

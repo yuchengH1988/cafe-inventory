@@ -35,4 +35,10 @@ router-view {
   max-height: 100vh;
   overflow-y: auto;
 }
+@media (max-width: 992px) {
+  #cafe-inventory {
+    display: block;
+    padding-top: 40px;
+  }
+}
 </style>

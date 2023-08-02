@@ -6,7 +6,7 @@ const authenticated = (req, res, next) => {
     if (!user) {
       console.log(err)
       return res.status(401).json({
-        status: 'error',
+        status: 401,
         message: 'JWT token verification failed!'
       })
     }
@@ -20,9 +20,9 @@ const authenticatedAdmin = (req, res, next) => {
     if (req.user.isAdmin) {
       return next()
     }
-    return res.json({ status: 'error', message: 'you don\'t have authority to login!' })
+    return res.json({ status: 400, message: 'you don\'t have authority to login!' })
   } else {
-    return res.json({ status: 'error', message: 'you don\'t have authority to login!' })
+    return res.json({ status: 400, message: 'you don\'t have authority to login!' })
   }
 }
 

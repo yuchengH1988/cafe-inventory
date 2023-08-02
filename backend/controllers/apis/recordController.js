@@ -39,7 +39,7 @@ const recordController = {
         })
       }
 
-      return res.status(200).json({ status: 'success', results })
+      return res.status(200).json({ status: 200, results })
     } catch (error) {
       console.log(error)
       next(error)
@@ -52,13 +52,13 @@ const recordController = {
 
       const record = await Record.findOne({ dateId, ingredientId })
       if (record) {
-        return res.status(401).json({ status: 'error', message: 'this record is existed!' })
+        return res.status(401).json({ status: 401, message: 'this record is existed!' })
       }
       let result = await Record.create({
         dateId, authorId, actualUsed, estimateUsed, ingredientId
       })
 
-      return res.status(200).json({ status: 'success', message: ' New record has been built.' })
+      return res.status(200).json({ status: 200, message: ' New record has been built.' })
     } catch (error) {
       console.log(error)
       next(error)
@@ -72,7 +72,7 @@ const recordController = {
       const newDateId = newDate ? moment(newDate).format('YYYYMMDD') : dateId
       let record = await Record.findOneAndUpdate({ dateId, ingredientId, authorId }, { dateId: newDateId, actualUsed, estimateUsed }, { useFindAndModify: false, new: true }
       )
-      return res.status(200).json({ status: 'success', message: ' Record has been updated.' })
+      return res.status(200).json({ status: 200, message: ' Record has been updated.' })
     } catch (error) {
       console.log(error)
       next(error)
@@ -84,9 +84,9 @@ const recordController = {
       const authorId = req.user._id
       await Record.deleteMany({ dateId, authorId }, (err) => {
         if (err) {
-          return res.status(404).json({ status: 'error', message: "Can't delete this record." })
+          return res.status(404).json({ status: 404, message: "Can't delete this record." })
         } else {
-          return res.status(200).json({ status: 'success', message: 'The record has removed successfully!' })
+          return res.status(200).json({ status: 200, message: 'The record has removed successfully!' })
         }
       })
     } catch (error) {
@@ -99,7 +99,7 @@ const recordController = {
       const { dateId } = req.params
       const authorId = req.user._id
       const records = await Record.find({ dateId, authorId }).lean()
-      return res.status(200).json({ status: 'success', records })
+      return res.status(200).json({ status: 200, records })
     } catch (error) {
       console.log(error)
       next(error)
@@ -125,7 +125,7 @@ const recordController = {
       filter.dateId = { $regex: timeSet }
       const records = await Record.find(filter).sort({ dateId: 1 })
 
-      return res.status(200).json({ status: 'success', records })
+      return res.status(200).json({ status: 200, records })
     } catch (error) {
       console.log(error)
       next(error)
@@ -135,9 +135,9 @@ const recordController = {
     try {
       await Product.find({}, (err, products) => {
         if (err) {
-          return res.status(400).json({ status: 'error', message: 'Can\'t find this product' })
+          return res.status(400).json({ status: 400, message: 'Can\'t find this product' })
         } else {
-          return res.status(200).json({ status: 'success', products })
+          return res.status(200).json({ status: 200, products })
         }
       })
     } catch (error) {
@@ -149,9 +149,9 @@ const recordController = {
     try {
       await Ingredient.find({}, (err, ingredients) => {
         if (err) {
-          return res.status(400).json({ status: 'error', message: 'Can\'t find ingredients' })
+          return res.status(400).json({ status: 400, message: 'Can\'t find ingredients' })
         } else {
-          return res.status(200).json({ status: 'success', ingredients })
+          return res.status(200).json({ status: 200, ingredients })
         }
       })
     } catch (error) {

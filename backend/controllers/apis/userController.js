@@ -21,23 +21,23 @@ const userController = {
       const { account, password } = req.body
       // 確認 account & password必填
       if (!account || !password) {
-        return res.status(400).json({ status: 'error', message: 'account and password are required!' })
+        return res.status(400).json({ status: 400, message: 'account and password are required!' })
       }
       // 確認 account 是否已存在資料庫
       const user = await User.findOne({ account })
       if (!user) {
-        return res.status(401).json({ status: 'error', message: 'this account has not been registered!' })
+        return res.status(401).json({ status: 401, message: 'this account has not been registered!' })
       }
       // 確認 password 是否正確
       if (!bcrypt.compareSync(password, user.password)) {
-        return res.status(401).json({ status: 'error', message: 'password incorrect!' })
+        return res.status(401).json({ status: 401, message: 'password incorrect!' })
       }
       // 回傳使用者資訊和 token
       const payload = { _id: user._id }
       const token = jwt.sign(payload, process.env.JWT_SECRET)
 
       return res.status(200).json({
-        status: 'success',
+        status: 200,
         message: 'ok',
         token: token,
         user: {
@@ -62,13 +62,15 @@ const userController = {
       let { password } = req.body
 
       if (!name || !email || !password || !checkPassword) {
-        return res.status(400).json({ status: 'error', message: 'name, email, password, checkPassword are required!' })
+        return res.status(400).json({ status: 400, message: 'name, email, password, checkPassword are required!' })
       }
       // 確認 password & checkPassword 相同
       if (password !== checkPassword) {
-        return res.status(400).json({ status: 'error', message: 'password & checkPassword must be same!' })
+        return res.status(400).json({ status: 400, message: 'password & checkPassword must be same!' })
       }
       password = bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
+
+      if (password !== user.password) return res.status(403).json({ status: 403, message: 'please don\'t change the password' })
 
       //圖片處理
       const { files } = req
@@ -81,7 +83,7 @@ const userController = {
         await User.findByIdAndUpdate(user._id, { name, email, password }, { useFindAndModify: false, new: true })
       }
 
-      return res.status(200).json({ status: 'success', message: `user ${user.name} ${user.account} have been updated` })
+      return res.status(200).json({ status: 200, message: `user ${user.name} ${user.account} have been updated` })
 
     } catch (error) {
       console.log(error)

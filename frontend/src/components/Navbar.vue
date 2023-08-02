@@ -19,7 +19,7 @@
           class="nav-link navbar-data mt-2"
           to="/charts">
           <i class="fas fa-database"></i>
-          <span class="mt-1">報表查詢</span>
+          <span>報表查詢</span>
         </router-link>
       </div>
     </div>
@@ -27,7 +27,7 @@
       <div class="sidebar-end mt-auto">
         <router-link
           v-if="currentUser.isAdmin"
-          class="nav-link navbar-admin"
+          class="nav-link navbar-admin mb-1"
           to="/admin/data"
           :class="[{'router-link-active active': $route.path.indexOf('admin') > -1}]">
           <i class="fas fa-user-cog"></i>
@@ -89,7 +89,8 @@ export default {
   background: white;
 }
 .nav-link:hover, .navbar-home:hover {
-  transform: scale(1.05)
+  transform: scale(1.05);
+  color: #FFF;
 }
 .nav-link span {
   display: none;
@@ -97,12 +98,12 @@ export default {
   color: rgb(233, 233, 233);
   font-weight: 800;
 }
-.nav-link:hover span {
+.nav-link:not(.active):hover span {
   display: block;
   position: absolute;
-  width: 100%;
+  width: 80px;
   text-align: center;
-  bottom: -10px;
+  bottom: -5px;
   left: 50%;
   transform: translateX(-50%);
   color: #fff;

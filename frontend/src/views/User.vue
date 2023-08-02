@@ -95,19 +95,27 @@
             </button>
             <button
               v-if="isEditing"
+              @click="fakeButton"
+              type="button"
+              class="btn btn-info mr-3"
+            >
+              儲存
+            </button>
+            <!-- <button
+              v-if="isEditing"
               :disabled="isProcessing"
               type="submit"
               class="btn btn-info mr-3"
             >
-              {{ isProcessing ? "...處理中" : "Save" }}
-            </button>
+              {{ isProcessing ? "...處理中" : "儲存" }}
+            </button> -->
             <button
               v-if="isEditing"
               @click="changeStatus"
               type="button"
               class="btn btn-warning"
             >
-              Cancel
+              取消
             </button>
           </div>
         </div>
@@ -154,6 +162,7 @@ export default {
         this.email = data.email;
         this.isLoading = false;
       } catch (error) {
+        console.log('1234', error)
         this.isLoading = false;
         Toast.fire({
           icon: "error",
@@ -175,52 +184,58 @@ export default {
         this.checkPassword = "";
       }
     },
-    async updateUser(e) {
-      try {
-        this.isProcessing = true;
-        //當使用者沒輸入名稱
-        if (
-          !this.name.trim() ||
-          !this.email ||
-          !this.password ||
-          !this.checkPassword
-        ) {
-          Toast.fire({
-            icon: "warning",
-            title: "請填上所有欄位",
-          });
-          return;
-        }
-        if (this.password !== this.checkPassword) {
-          Toast.fire({
-            icon: "warning",
-            title: "確認密碼不正確",
-          });
-          return;
-        }
-
-        const form = e.target;
-        const formData = new FormData(form);
-        const { data } = await usersAPI.updateUser({
-          formData,
-        });
-        if (data.status !== "success") {
-          throw new Error(data.message);
-        }
-        this.password = "";
-        this.checkPassword = "";
-        this.isEditing = false;
-        this.isProcessing = false;
-      } catch (error) {
-        this.fetchUser();
-        this.isEditing = false;
-        this.isProcessing = false;
-        Toast.fire({
-          icon: "error",
-          title: "無法更新使用者資料，請稍後再試",
-        });
-      }
+    fakeButton () {
+      Toast.fire({
+        icon: "warning",
+        title: "更新用戶功能關閉中\n純面試用途，不要改密碼🙏拍謝",
+      });
     },
+    // async updateUser(e) {
+    //   try {
+    //     this.isProcessing = true;
+    //     //當使用者沒輸入名稱
+    //     if (
+    //       !this.name.trim() ||
+    //       !this.email ||
+    //       !this.password ||
+    //       !this.checkPassword
+    //     ) {
+    //       Toast.fire({
+    //         icon: "warning",
+    //         title: "請填上所有欄位",
+    //       });
+    //       return;
+    //     }
+    //     if (this.password !== this.checkPassword) {
+    //       Toast.fire({
+    //         icon: "warning",
+    //         title: "確認密碼不正確",
+    //       });
+    //       return;
+    //     }
+
+    //     const form = e.target;
+    //     const formData = new FormData(form);
+    //     const { data } = await usersAPI.updateUser({
+    //       formData,
+    //     });
+    //     if (data.status !== "success") {
+    //       throw new Error(data.message);
+    //     }
+    //     this.password = "";
+    //     this.checkPassword = "";
+    //     this.isEditing = false;
+    //     this.isProcessing = false;
+    //   } catch (error) {
+    //     this.fetchUser();
+    //     this.isEditing = false;
+    //     this.isProcessing = false;
+    //     Toast.fire({
+    //       icon: "error",
+    //       title: "無法更新使用者資料，請稍後再試",
+    //     });
+    //   }
+    // },
     handleFileChange(e) {
       const { files } = e.target;
       if (!files.length) return;

@@ -1,11 +1,12 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
-// git fix
-const baseURL = 'https://work-cafe-inventory.yuchengworkpresentation.net/api'
+const baseURL = 'http://localhost:3000/api'
+// const baseURL = 'https://work-cafe-inventory.yuchengworkpresentation.net/api'
 
 const axiosInstance = axios.create({
-  baseURL
+  baseURL,
+  timeout: 1000
 })
 axiosInstance.interceptors.request.use(
   config => {
@@ -14,6 +15,9 @@ axiosInstance.interceptors.request.use(
       config.headers['Authorization'] = `Bearer ${token}`
     }
     return config
+  },
+  (error) => {
+    return Promise.reject(error);
   })
 
 export const apiHelper = axiosInstance

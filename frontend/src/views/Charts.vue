@@ -40,6 +40,7 @@
             {{ m.name }}
           </option>
         </select>
+        <div class="line_break"></div>
         <span class="mx-2">
           營業天數：{{ records.length }}天
         </span>
@@ -297,7 +298,6 @@ export default {
   height: 100%;
   overflow-y: scroll;
 }
-
 .container::-webkit-scrollbar {
   display: none;
 }
@@ -307,5 +307,13 @@ td {
   font-size: 14px;
   padding: 10px;
   text-align: center;
+}
+.line_break {
+  display: none;
+}
+@media (max-width: 992px) {
+  .line_break {
+  display: block;
+}
 }
 </style>

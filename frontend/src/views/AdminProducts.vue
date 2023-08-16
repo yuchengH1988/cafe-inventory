@@ -166,7 +166,7 @@ export default {
             price: this.editProduct.price,
           });
         }
-        if (response.data.status !== "success") {
+        if (response.data.status !== 200) {
           throw new Error(response.data.message);
         }
         this.fetchData();
@@ -204,7 +204,7 @@ export default {
           const { data } = await adminAPI.products.delete({
             id: this.editProduct._id,
           });
-          if (data.status !== "success") {
+          if (data.status !== 200) {
             throw new Error(data.message);
           }
           Toast.fire({

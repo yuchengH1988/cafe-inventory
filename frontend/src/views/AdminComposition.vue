@@ -201,7 +201,7 @@ export default {
           }
         }
 
-        if (response.data.status !== "success") {
+        if (response.data.status !== 200) {
           throw new Error(response.data.message);
         }
         Toast.fire({

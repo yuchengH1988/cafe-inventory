@@ -74,7 +74,7 @@ export default {
           password: this.password,
         });
         const { data } = response;
-        if (data.status !== "success") {
+        if (data.status !== 200) {
           throw new Error(data.message);
         }
         localStorage.setItem("token", data.token);

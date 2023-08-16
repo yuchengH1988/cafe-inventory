@@ -187,7 +187,7 @@ export default {
             unit2Name: this.editIngredient.unit2Name,
           });
         }
-        if (response.data.status !== "success") {
+        if (response.data.status !== 200) {
           throw new Error(response.data.message);
         }
         this.fetchData();
@@ -227,7 +227,7 @@ export default {
           const { data } = await adminAPI.ingredients.delete({
             id: this.editIngredient._id,
           });
-          if (data.status !== "success") {
+          if (data.status !== 200) {
             throw new Error(data.message);
           }
           Toast.fire({

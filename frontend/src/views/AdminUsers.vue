@@ -95,7 +95,7 @@ export default {
         const { data } = await adminAPI.users.toggleAdmin({
           id: user._id,
         });
-        if (data.status !== "success") {
+        if (data.status !== 200) {
           throw new Error(data.message);
         }
         user.isAdmin = !user.isAdmin;
@@ -119,7 +119,7 @@ export default {
           const { data } = await adminAPI.users.delete({
             id: user._id,
           });
-          if (data.status !== "success") {
+          if (data.status !== 200) {
             throw new Error(data.message);
           }
           this.users = this.users.filter((u) => u._id !== user._id);

@@ -125,7 +125,7 @@ export default {
         const form = e.target;
         const formData = new FormData(form);
         const { data } = await adminAPI.users.create({ formData });
-        if (data.status !== "success") {
+        if (data.status !== 200) {
           Toast.fire({
             icon: "error",
             title: data.message,

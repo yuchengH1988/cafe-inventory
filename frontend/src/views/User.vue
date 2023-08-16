@@ -219,7 +219,7 @@ export default {
     //     const { data } = await usersAPI.updateUser({
     //       formData,
     //     });
-    //     if (data.status !== "success") {
+    //     if (data.status !== 200) {
     //       throw new Error(data.message);
     //     }
     //     this.password = "";

@@ -40,5 +40,8 @@ router-view {
     display: block;
     padding-top: 40px;
   }
+  .container {
+    max-width: 90%;
+  }
 }
 </style>

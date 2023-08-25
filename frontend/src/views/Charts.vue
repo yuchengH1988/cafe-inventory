@@ -10,59 +10,69 @@
           class="mx-2">
           {{ currentUser.name }}
         </span>
-        <span v-if="currentUser.isAdmin">
+        <div v-if="currentUser.isAdmin">
           店家
-        </span>
-        <select
-          v-if="currentUser.isAdmin"
-          class="form-select form-select-sm mx-2"
-          aria-label=".form-select-sm example"
-          v-model="userId"
-          @change="fetchData">
-          <option
-            v-for="u in users"
-            :key="u._id"
-            :value="u._id">
-              {{ u.name }}
-          </option>
-        </select>
-        <span>年份：</span>
-        <select class="form-select form-select-sm mx-2" aria-label=".form-select-sm example" v-model="year"
-          @change="fetchData">
-          <option v-for="y in years" :key="y.value" :value="y.value">
-            {{ y.name }}
-          </option>
-        </select>
-        <span>月份：</span>
-        <select class="form-select form-select-sm mx-2" aria-label=".form-select-sm example" v-model="month"
-          @change="fetchData">
-          <option v-for="m in months" :key="m.value" :value="m.value">
-            {{ m.name }}
-          </option>
-        </select>
-        <div class="line_break"></div>
-        <span class="mx-2">
+          <select
+            class="form-select form-select-sm mx-2"
+            aria-label=".form-select-sm example"
+            v-model="userId"
+            @change="fetchData">
+            <option
+              v-for="u in users"
+              :key="u._id"
+              :value="u._id">
+                {{ u.name }}
+            </option>
+          </select>
+        </div>
+        <div>
+          年份：
+          <select class="form-select form-select-sm mx-2" aria-label=".form-select-sm example" v-model="year"
+            @change="fetchData">
+            <option v-for="y in years" :key="y.value" :value="y.value">
+              {{ y.name }}
+            </option>
+          </select>
+        </div>
+        <div>
+          月份：
+          <select
+            class="form-select form-select-sm mx-2"
+            aria-label=".form-select-sm example"
+            v-model="month"
+            @change="fetchData">
+            <option v-for="m in months" :key="m.value" :value="m.value">
+              {{ m.name }}
+            </option>
+          </select>
+        </div>
+        <div class="mx-2">
           營業天數：{{ records.length }}天
-        </span>
-        <span class="ml-4">
+        </div>
+        <div class="ml-4">
           物料種類：
-        </span>
-        <select class="form-select form-select-sm mx-2" aria-label=".form-select-sm example" v-model="ingredientId"
-          @change="fetchData">
-          <option v-for="i in ingredients" :key="i._id" :value="i._id">
-            {{ i.name }}
-          </option>
-        </select>
-        <span class="ml-4">單位：</span>
-        <select class="form-select form-select-sm mx-2" aria-label=".form-select-sm example" v-model="unitSet"
-          @change="fetchData">
-          <option :value="ingredient.unit">
-            {{ ingredient.unitName }}
-          </option>
-          <option :value="ingredient.unit2">
-            {{ ingredient.unit2Name }}
-          </option>
-        </select>
+          <select
+            class="form-select form-select-sm mx-2"
+            aria-label=".form-select-sm example"
+            v-model="ingredientId"
+            @change="fetchData">
+            <option v-for="i in ingredients" :key="i._id" :value="i._id">
+              {{ i.name }}
+            </option>
+          </select>
+        </div>
+        <div class="ml-4">
+          單位：
+          <select class="form-select form-select-sm mx-2" aria-label=".form-select-sm example" v-model="unitSet"
+            @change="fetchData">
+            <option :value="ingredient.unit">
+              {{ ingredient.unitName }}
+            </option>
+            <option :value="ingredient.unit2">
+              {{ ingredient.unit2Name }}
+            </option>
+          </select>
+        </div>
       </div>
       <div class="result-form mt-3 p-3 w-50" style="font-size: 15px">
         <table class="table form-group">
@@ -301,7 +311,10 @@ export default {
 .container::-webkit-scrollbar {
   display: none;
 }
-
+.d-flex {
+  flex-wrap: wrap;
+  row-gap: 10px;
+}
 th,
 td {
   font-size: 14px;
@@ -313,7 +326,7 @@ td {
 }
 @media (max-width: 992px) {
   .line_break {
-  display: block;
-}
+    display: block;
+  }
 }
 </style>

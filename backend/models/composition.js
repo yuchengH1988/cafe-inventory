@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const userSchema = new Schema({
+const compositionSchema = new Schema({
   ingredientId: {
     type: Schema.Types.ObjectId,
     required: true,
@@ -15,6 +15,6 @@ const userSchema = new Schema({
     required: true,
     ref: 'Product'
   },
-}, { versionKey: false })
+}, { timestamps: true, versionKey: false })
 
-module.exports = mongoose.model('Composition', userSchema)
+module.exports = mongoose.model('Composition', compositionSchema)

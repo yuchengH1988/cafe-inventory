@@ -51,7 +51,7 @@ npm run serve
 
 ### docker
 
-1. open your docker
+1. open with your docker
 
   ```js
   docker-compose up

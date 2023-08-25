@@ -10,13 +10,12 @@ const Record = require('../record')
 const User = require('../user')
 db.once('open', async () => {
   try {
-
     const users = await User.find().lean()
     const ingredients = await Ingredient.find().lean()
+    console.log('users x ingredients:', users.length, ingredients.length)
     let businessDay = new Date()
-
+    console.log('date: ', businessDay)
     const userIngredientArray = []
-
     for (const { _id } of users) {
       ingredients.forEach(i => {
         userIngredientArray.push({
@@ -26,7 +25,6 @@ db.once('open', async () => {
         })
       })
     }
-
     const bulkOps = []
 
     for (i = -1; i > -100; i--) {
@@ -34,23 +32,25 @@ db.once('open', async () => {
       for (const { authorId, ingredientId, unit } of userIngredientArray) {
         const estimateUsed = Math.round(unit * 10 + (Math.random() * 2 - 1) * unit * 2)
         const actualUsed = Math.round(estimateUsed + (Math.random() * 2 - 1) * unit * 1)
-          bulkOps.push({
-            insertOne: {
-            document: {
+        bulkOps.push({
+          updateOne: {
+            filter: {
               dateId,
               authorId,
+              ingredientId
+            },
+            update: {
               actualUsed,
               estimateUsed,
-              ingredientId
-            }
+            },
+            new: true,
+            upsert: true,
+            setDefaultsOnInsert: true
           }
         })
       }
-      if (bulkOps.length > 500) {
-        await Record.bulkWrite(bulkOps, { ordered: false })
-        bulkOps.length = 0
-      }
     }
+    console.log('bulkOps.length', bulkOps.length)
 
     if (bulkOps.length) await Record.bulkWrite(bulkOps, { ordered: false })
 

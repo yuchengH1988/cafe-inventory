@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const userSchema = new Schema({
+const recordSchema = new Schema({
   authorId: {
     type: Schema.Types.ObjectId,
     ref: 'User'
@@ -23,8 +23,8 @@ const userSchema = new Schema({
     required: true,
     default: 0
   }
-})
+}, { timestamps: true })
 
-userSchema.index({ userId: 1, status: 1 });
+recordSchema.index({ userId: 1, status: 1 });
 
-module.exports = mongoose.model('Record', userSchema)
+module.exports = mongoose.model('Record', recordSchema)

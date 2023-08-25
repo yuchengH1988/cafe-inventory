@@ -98,4 +98,17 @@ export default {
 input:hover {
   border-color: darkgray;
 }
+.text-info {
+    width: 100%;
+  }
+@media (max-width: 992px) {
+  .record-main {
+    display: block;
+  }
+  .container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+}
 </style>

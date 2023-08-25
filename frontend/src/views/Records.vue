@@ -361,17 +361,6 @@ input::-webkit-inner-spin-button {
 .record-ingredients, .results{
   width: 50%;
 }
-
-.record-main::after {
-  border-left: 1px solid rgb(23, 162, 184);
-  content: "";
-  position: absolute;
-  right: 50%;
-  top: 50%;
-  height: 95%;
-  width: 0;
-  transform: translateY(-50%);
-}
 th,
 td {
   vertical-align: middle;
@@ -380,6 +369,18 @@ td {
   position: absolute;
   bottom: 15px;
   width: 45%;
+}
+@media (min-width: 993px) {
+  .record-main::after {
+    border-left: 1px solid rgb(23, 162, 184);
+    content: "";
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    height: 95%;
+    width: 0;
+    transform: translateY(-50%);
+  }
 }
 
 @media (max-width: 992px) {

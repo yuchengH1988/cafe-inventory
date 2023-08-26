@@ -1,8 +1,8 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
-const baseURL = 'http://localhost:3000/api'
-// const baseURL = 'https://work-cafe-inventory.yuchengworkpresentation.net/api'
+// const baseURL = 'http://localhost:3000/api'
+const baseURL = 'https://work-cafe-inventory.yuchengworkpresentation.net/api'
 
 const axiosInstance = axios.create({
   baseURL,

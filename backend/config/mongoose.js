@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 // mongoose.connect(MONGODB_URI, { useNewUrlParser: true, // useUnifiedTopology: true, useCreateIndex: true })
 
 // docker db
-mongoose.connect('mongodb://mongo:27017', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect('mongodb://mongo', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
 // 取得資料庫連線狀態
 const db = mongoose.connection

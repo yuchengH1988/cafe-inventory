@@ -60,7 +60,7 @@ npm run serve
 2. connect into backend container and create fake records
 
 ```js
-  docker exc -it "container Id" /bin/bash
+  docker exec -it "container Id" /bin/sh
 
   npm run seed
   npm run fakeRecord

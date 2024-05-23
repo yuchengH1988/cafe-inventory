@@ -4,4 +4,4 @@ WORKDIR /app/backend/
 RUN npm install
 
 EXPOSE 3000
-CMD ["node", "app.js"]
+CMD ["npm", "run", "server_prod"]

@@ -1,15 +1,14 @@
 const moment = require('moment')
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
-const db = require('../../config/mongoose')
-
-//載入model
 const Ingredient = require('../ingredient')
 const Record = require('../record')
 const User = require('../user')
-db.once('open', async () => {
+
+const connectMongo = require('~common/mongodb/connectMongo');
+const disconnectMongo = require('~common/mongodb/disconnectMongo');
+
+async function createRecords () {
   try {
+    await connectMongo()
     const users = await User.find().lean()
     const ingredients = await Ingredient.find().lean()
     console.log('users x ingredients:', users.length, ingredients.length)
@@ -54,10 +53,12 @@ db.once('open', async () => {
 
     if (bulkOps.length) await Record.bulkWrite(bulkOps, { ordered: false })
 
-    db.close()
+    await disconnectMongo()
 
   } catch (error) {
-    console.log(error)
-    db.close()
+    console.log(error);
+    await disconnectMongo();
+    return error;
   }
-})
+}
+createRecords()

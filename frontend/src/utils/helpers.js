@@ -1,9 +1,8 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import domain from '../../config/domainConfig'
 
-// const baseURL = 'http://localhost:3000/api'
-const baseURL = 'https://cafe-inventory.calvin-huang.com/api'
-
+const baseURL = domain.url
 const axiosInstance = axios.create({
   baseURL,
   timeout: 1000

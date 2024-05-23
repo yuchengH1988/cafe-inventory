@@ -9,7 +9,7 @@ const JwtStrategy = passportJWT.Strategy
 
 let jwtOptions = {}
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
-jwtOptions.secretOrKey = process.env.JWT_SECRET
+jwtOptions.secretOrKey = process.env.JWT_SECRET || 'Secret'
 
 const strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
   User.findById(jwt_payload._id)

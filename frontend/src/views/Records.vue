@@ -260,7 +260,7 @@ export default {
               ingredientId: ingredient._id,
               dateId,
             });
-            if (response.statusText === "OK") {
+            if (response.status == 200) {
               status++;
             }
           }
@@ -286,7 +286,7 @@ export default {
     async deleteRecord() {
       try {
         const response = await recordsAPI.deleteRecord({ dateId: this.dateId });
-        if (response.statusText === "OK") {
+        if (response.status === 200) {
           this.resetForm();
           Toast.fire({
             icon: "success",

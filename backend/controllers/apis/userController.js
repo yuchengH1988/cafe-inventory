@@ -102,12 +102,12 @@ const userController = {
     }
   },
   getCurrentUser: async (req, res, next) => {
-    return res.json({
+    return res.status(200).json({
       _id: req.user._id,
       name: req.user.name,
       account: req.user.account,
       email: req.user.email,
-      avatar: req.user.avatar,
+      avatar: req.user.avatar || '',
       isAdmin: req.user.isAdmin
     })
   }

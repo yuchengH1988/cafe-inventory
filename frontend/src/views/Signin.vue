@@ -77,8 +77,9 @@ export default {
         if (data.status !== 200) {
           throw new Error(data.message);
         }
-        localStorage.setItem("token", data.token);
         this.$store.commit("setCurrentUser", data.user);
+        localStorage.setItem("token", data.token);
+        this.$store.commit("setToken", data.token);
 
         this.$router.push("/records");
       } catch (error) {

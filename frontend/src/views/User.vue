@@ -162,7 +162,6 @@ export default {
         this.email = data.email;
         this.isLoading = false;
       } catch (error) {
-        console.log('1234', error)
         this.isLoading = false;
         Toast.fire({
           icon: "error",
